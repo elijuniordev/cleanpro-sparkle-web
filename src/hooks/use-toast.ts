@@ -1,11 +1,7 @@
-// src/hooks/use-toast.ts
 import * as React from "react";
-import { EventType } from "../toast"; // Importe EventType from your toast.tsx
+import type { EventType } from "../toast"; // Importe EventType de toast.tsx
 
-type ToasterToast = EventType; // Use EventType from toast.tsx for consistency
-
-const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000; // Increased for debugging, set to a reasonable value like 10000 (10s)
+type ToasterToast = EventType;
 
 let count = 0;
 
@@ -20,8 +16,9 @@ type Toast = {
   description?: React.ReactNode;
   action?: React.ReactElement;
   duration?: number;
-  variant?: "default" | "destructive"; // Add variants if you have them
-} & ({ variant?: "default" } | { variant: "destructive" }); // Define variant type for 'toast' function
+  variant?: "default" | "destructive";
+  open?: boolean; // Já corrigimos esta linha antes, mantendo-a
+};
 
 type State = {
   toasts: Toast[];
@@ -59,7 +56,7 @@ const reducer = (state: State, action: Action): State => {
     case actionTypes.ADD_TOAST:
       return {
         ...state,
-        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
+        toasts: [action.toast, ...state.toasts].slice(0, 1), // Limite de 1 toast visível
       };
 
     case actionTypes.UPDATE_TOAST:
@@ -72,23 +69,6 @@ const reducer = (state: State, action: Action): State => {
 
     case actionTypes.DISMISS_TOAST:
       const { toastId } = action;
-
-      // If a toastId is provided, dismiss it
-      if (toastId) {
-        addToastRef.current.map((toast) => {
-          if (toast.id === toastId) {
-            toast.dismiss();
-          }
-          return toast; // Make sure to return the toast
-        });
-      } else {
-        // Otherwise, dismiss all toasts
-        addToastRef.current.map((toast) => {
-          toast.dismiss();
-          return toast; // Make sure to return the toast
-        });
-      }
-
       return {
         ...state,
         toasts: state.toasts.map((t) =>
@@ -102,27 +82,12 @@ const reducer = (state: State, action: Action): State => {
       };
 
     case actionTypes.REMOVE_TOAST:
-      if (action.toastId === undefined) {
-        return {
-          ...state,
-          toasts: [],
-        };
-      }
       return {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
       };
   }
 };
-
-const listeners: ((state: State) => void)[] = [];
-
-const addToastRef = React.createRef<ToasterToast[]>(); // Initialize with an empty array
-
-function dispatch(action: Action) {
-  state = reducer(state, action);
-  listeners.forEach((listener) => listener(state));
-}
 
 type ToastContextType = {
   toast: (props: Omit<Toast, "id">) => {
@@ -131,48 +96,57 @@ type ToastContextType = {
     update: (props: Partial<Toast>) => void;
   };
   dismiss: (toastId?: string) => void;
-  toasts: Toast[]; // Add toasts to the context type
-  addToastRef: React.RefObject<ToasterToast[]>; // Add addToastRef to the context type
+  toasts: Toast[];
 };
 
-const ToastContext = React.createContext<ToastContextType | undefined>(undefined); // Allow undefined initially
+// CORREÇÃO: Mova a declaração de ToastContext para ANTES de ToasterProvider
+const ToastContext = React.createContext<ToastContextType | undefined>(undefined);
 
 export function ToasterProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = React.useReducer(reducer, { toasts: [] });
+  const [state, dispatch] = React.useReducer(reducer, { toasts: [] });
 
-  React.useEffect(() => {
-    listeners.push(setState);
-    return () => {
-      const index = listeners.indexOf(setState);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
+  const addToast = React.useCallback((props: Omit<Toast, "id">) => {
+    const id = genId();
+    const toast = { ...props, id, open: true };
+    dispatch({ type: actionTypes.ADD_TOAST, toast });
+
+    return {
+      id: toast.id,
+      dismiss: () => dispatch({ type: actionTypes.DISMISS_TOAST, toastId: toast.id }),
+      update: (newProps: Partial<Toast>) => dispatch({ type: actionTypes.UPDATE_TOAST, toast: { ...newProps, id: toast.id } }),
     };
   }, []);
 
+  const dismissToast = React.useCallback((toastId?: string) => {
+    dispatch({ type: actionTypes.DISMISS_TOAST, toastId });
+  }, []);
+
+  const removeToast = React.useCallback((toastId?: string) => {
+    dispatch({ type: actionTypes.REMOVE_TOAST, toastId });
+  }, []);
+
+  React.useEffect(() => {
+    state.toasts.forEach(toast => {
+      if (toast.open === false) {
+        const timer = setTimeout(() => {
+          removeToast(toast.id);
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+    });
+  }, [state.toasts, removeToast]);
+
+  const value = React.useMemo(() => ({
+    toast: addToast,
+    dismiss: dismissToast,
+    toasts: state.toasts,
+  }), [addToast, dismissToast, state.toasts]);
+
   return (
-    <ToastContext.Provider value={{ toast: addToast, dismiss: dismissToast, toasts: state.toasts, addToastRef }}>
+    <ToastContext.Provider value={value}>
       {children}
     </ToastContext.Provider>
   );
-}
-
-let state: State = { toasts: [] };
-
-function dismissToast(toastId?: string) {
-  dispatch({ type: actionTypes.DISMISS_TOAST, toastId });
-}
-
-function addToast(props: Omit<Toast, "id">) {
-  const id = genId();
-  const toast = { ...props, id };
-  dispatch({ type: actionTypes.ADD_TOAST, toast });
-  return {
-    id: toast.id,
-    dismiss: () => dismissToast(toast.id),
-    update: (props: Partial<Toast>) =>
-      dispatch({ type: actionTypes.UPDATE_TOAST, toast: { ...props, id } }),
-  };
 }
 
 export function useToast() {

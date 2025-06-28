@@ -1,13 +1,12 @@
-import React, { useState, RefObject } from 'react'; // Importe RefObject
-import { Phone, MapPin, Mail } from 'lucide-react'; // Adicione Mail para o ícone de email
-import { useToast } from '../hooks/use-toast'; // Mantenha, pois você está usando
+import React, { useState, RefObject } from 'react';
+import { Phone, MapPin, Mail } from 'lucide-react';
+import { useToast } from '../hooks/use-toast';
 
-// Defina a interface de props para o componente Contact
 interface ContactProps {
   sectionRef: RefObject<HTMLElement>;
 }
 
-const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop sectionRef
+const Contact: React.FC<ContactProps> = ({ sectionRef }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,8 +25,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Formulário enviado:', formData); // Log em português
-    // Aqui você integraria com um serviço de backend (e.g., e-mail, CRM)
+    console.log('Formulário enviado:', formData);
     toast({
       title: "Mensagem Enviada!",
       description: "Obrigado por entrar em contato com a CleanPro. Retornaremos em breve!",
@@ -44,17 +42,16 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
   return (
     <section
       id="contact"
-      ref={sectionRef} // ATRIBUIÇÃO DA REF AQUI!
-      className="py-20 md:py-24 bg-white text-center" // Mantido bg-white
+      ref={sectionRef}
+      className="py-20 md:py-24 bg-white text-center"
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-4 relative inline-block"> {/* Ajustado para text-dark-gray */}
+          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-4 relative inline-block">
             Fale Conosco em Osasco/SP
-            {/* Linha decorativa abaixo do título */}
-            <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span> {/* Ajustado para bg-primary-blue */}
+            <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span>
           </h2>
-          <p className="text-xl text-text-color max-w-3xl mx-auto mt-4"> {/* Ajustado para text-text-color */}
+          <p className="text-xl text-text-color max-w-3xl mx-auto mt-4">
             Pronto para experimentar serviços profissionais de limpeza e higienização? Entre em contato hoje mesmo para um orçamento gratuito e deixe seu ambiente impecável! Atendemos Osasco/SP e toda a região.
           </p>
         </div>
@@ -63,49 +60,47 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Informações de Contato */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-blue-50 to-red-50 rounded-xl p-8"> {/* Mantido, mas pode ajustar para light-gray ou cores da paleta */}
-                <h3 className="text-2xl font-bold text-dark-gray mb-6">Informações de Contato</h3> {/* Ajustado para text-dark-gray */}
+              <div className="bg-gradient-to-br from-blue-50 to-red-50 rounded-xl p-8">
+                <h3 className="text-2xl font-bold text-dark-gray mb-6">Informações de Contato</h3>
 
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-primary-blue rounded-lg flex items-center justify-center"> {/* Ajustado para bg-primary-blue */}
+                    <div className="w-12 h-12 bg-primary-blue rounded-lg flex items-center justify-center">
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-dark-gray">Telefone</h4> {/* Ajustado para text-dark-gray */}
-                      <a href="tel:+5511999999999" className="text-text-color hover:text-primary-blue transition-colors duration-300 text-base md:text-lg">+55 11 99999-9999</a> {/* ATUALIZE COM SEU NÚMERO REAL. Ajustado para text-text-color e hover */}
+                      <h4 className="font-semibold text-dark-gray">Telefone</h4>
+                      <a href="tel:+5511999999999" className="text-text-color hover:text-primary-blue transition-colors duration-300 text-base md:text-lg">+55 11 99999-9999</a> {/* ATUALIZE COM SEU NÚMERO REAL */}
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-secondary-red rounded-lg flex items-center justify-center"> {/* Ajustado para bg-secondary-red */}
-                      {/* O ícone de email padrão do lucide-react é "Mail" */}
+                    <div className="w-12 h-12 bg-secondary-red rounded-lg flex items-center justify-center">
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-dark-gray">Email</h4> {/* Ajustado para text-dark-gray */}
-                      <a href="mailto:contato@cleanpro.com.br" className="text-text-color hover:text-primary-blue transition-colors duration-300 text-base md:text-lg">contato@cleanpro.com.br</a> {/* ATUALIZE COM SEU EMAIL REAL. Ajustado para text-text-color e hover */}
+                      <h4 className="font-semibold text-dark-gray">Email</h4>
+                      <a href="mailto:contato@cleanpro.com.br" className="text-text-color hover:text-primary-blue transition-colors duration-300 text-base md:text-lg">contato@cleanpro.com.br</a> {/* ATUALIZE COM SEU EMAIL REAL */}
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-whatsapp-green rounded-lg flex items-center justify-center"> {/* Ajustado para bg-whatsapp-green (assumindo que já adicionou no tailwind.config.js) */}
+                    <div className="w-12 h-12 bg-whatsapp-green rounded-lg flex items-center justify-center">
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-dark-gray">Endereço</h4> {/* Ajustado para text-dark-gray */}
-                      <p className="text-text-color text-base md:text-lg">Rua Exemplo, 123 - Centro<br />Osasco - SP, 06000-000</p> {/* ATUALIZE COM SEU ENDEREÇO REAL. Ajustado para text-text-color */}
+                      <h4 className="font-semibold text-dark-gray">Endereço</h4>
+                      <p className="text-text-color text-base md:text-lg">Rua Exemplo, 123 - Centro<br />Osasco - SP, 06000-000</p> {/* ATUALIZE COM SEU ENDEREÇO REAL */}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Seção "Por que Escolher a CleanPro?" */}
-              <div className="bg-gradient-to-r from-primary-blue to-secondary-red rounded-xl p-8 text-white"> {/* Ajustado para primary-blue e secondary-red */}
+              <div className="bg-gradient-to-r from-primary-blue to-secondary-red rounded-xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Por Que Escolher a CleanPro?</h3>
                 <ul className="space-y-3 text-base md:text-lg">
                   <li className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div> {/* flex-shrink-0 para evitar encolher */}
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
                     <span>Equipe profissional e experiente em higienização.</span>
                   </li>
                   <li className="flex items-center space-x-3">
@@ -125,13 +120,13 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
             </div>
 
             {/* Formulário de Contato */}
-            <div className="bg-light-gray rounded-xl p-8 shadow-lg"> {/* Ajustado para bg-light-gray e adicionado shadow-lg */}
-              <h3 className="text-2xl font-bold text-dark-gray mb-6">Solicite um Orçamento Gratuito</h3> {/* Ajustado para text-dark-gray */}
+            <div className="bg-light-gray rounded-xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-dark-gray mb-6">Solicite um Orçamento Gratuito</h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                    <label htmlFor="name" className="block text-sm font-medium text-text-color mb-2">
                       Nome Completo *
                     </label>
                     <input
@@ -141,13 +136,13 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color"
                       placeholder="Seu nome completo"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                    <label htmlFor="email" className="block text-sm font-medium text-text-color mb-2">
                       Endereço de E-mail *
                     </label>
                     <input
@@ -157,7 +152,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color"
                       placeholder="seu@email.com"
                     />
                   </div>
@@ -165,7 +160,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                    <label htmlFor="phone" className="block text-sm font-medium text-text-color mb-2">
                       Número de Telefone
                     </label>
                     <input
@@ -180,7 +175,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
                   </div>
 
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                    <label htmlFor="service" className="block text-sm font-medium text-text-color mb-2">
                       Serviço Desejado
                     </label>
                     <select
@@ -188,7 +183,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color bg-white" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color bg-white"
                     >
                       <option value="">Selecione um serviço</option>
                       <option value="estofados">Limpeza de Estofados</option>
@@ -202,7 +197,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                  <label htmlFor="message" className="block text-sm font-medium text-text-color mb-2">
                     Mensagem
                   </label>
                   <textarea
@@ -211,14 +206,14 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop s
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors resize-none text-text-color" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors resize-none text-text-color"
                     placeholder="Descreva suas necessidades de limpeza..."
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-primary-blue to-secondary-red text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-primary-blue-hover hover:to-secondary-red-hover transition-all duration-300 transform hover:scale-105" // Ajustado para primary-blue/secondary-red e hovers customizados
+                  className="w-full bg-gradient-to-r from-primary-blue to-secondary-red text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-hover-blue hover:to-hover-red transition-all duration-300 transform hover:scale-105"
                 >
                   Enviar Mensagem & Solicitar Orçamento
                 </button>

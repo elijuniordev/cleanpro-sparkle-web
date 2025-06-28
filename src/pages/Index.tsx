@@ -1,12 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-// Importe seus componentes de UI de shadcn/ui e outros providers aqui
+// Importe seus componentes de UI (shadcn/ui ou outros) e hooks aqui
 import { Toaster } from '../toast'; // O componente Toaster
 import { useToast } from '../hooks/use-toast'; // O hook useToast
-// import { Toaster as Sonner } from "@/components/ui/sonner"; // Se for usar sonner, ajuste o caminho
-// import { TooltipProvider } from "@/components/ui/tooltip"; // Se for usar TooltipProvider
-// import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Se for usar React Query
 
 // Importe seus componentes de seção
 import Header from '../components/Header';
@@ -16,12 +13,9 @@ import Testimonials from '../components/Testimonials';
 import Location from '../components/Location';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
-import WhatsappButton from '../components/WhatsappButton'; // Seu botão flutuante
+import WhatsappButton from '../components/WhatsAppButton';
 
-// Mova a inicialização do queryClient para cá, se a landing page o utilizar
-// const queryClient = new QueryClient(); // Descomente e use se precisar de React Query na landing
-
-// Defina os metadados para cada seção
+// Defina os metadados para cada seção da Landing Page
 const sectionMetadata = {
   home: {
     title: "CleanPro | Limpeza e Higienização de Estofados e Automotiva em Osasco/SP",
@@ -62,7 +56,7 @@ const IndexPage: React.FC = () => {
 
   useEffect(() => {
     const observerOptions = {
-      root: null, // viewport
+      root: null, // O viewport
       rootMargin: '0px',
       threshold: 0.5, // 50% da seção visível para ser considerada "ativa"
     };
@@ -71,7 +65,7 @@ const IndexPage: React.FC = () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setCurrentSection(entry.target.id);
-          // Opcional: Atualizar o hash da URL para refletir a seção
+          // Opcional: Atualizar o hash da URL para refletir a seção, se desejar
           // window.history.pushState(null, '', `#${entry.target.id}`);
         }
       });
@@ -100,34 +94,28 @@ const IndexPage: React.FC = () => {
   const metadata = sectionMetadata[currentSection as keyof typeof sectionMetadata];
 
   return (
-    // <QueryClientProvider client={queryClient}> // Mova para cá se usar React Query
-    // <TooltipProvider> // Mova para cá se usar TooltipProvider
-      <>
-        <Helmet>
-          <title>{metadata.title}</title>
-          <meta name="description" content={metadata.description} />
-          <meta name="keywords" content={metadata.keywords} />
-          {/* Adicione outras meta tags Open Graph e Twitter Cards dinâmicas se necessário */}
-          <meta property="og:title" content={metadata.title} />
-          <meta property="og:description" content={metadata.description} />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : 'https://seusite.com.br/'} /> {/* URL dinâmica ou padrão */}
-          {/* Meta tags para imagem OG e Twitter podem ser mais genéricas no index.html ou dinâmicas aqui */}
-        </Helmet>
+    <>
+      <Helmet>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords} />
+        {/* Open Graph Meta Tags dinâmicas (para redes sociais) */}
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+        <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : 'https://seusite.com.br/'} />
+        {/* Se quiser uma imagem OG dinâmica por seção, adicione aqui (ex: og:image) */}
+      </Helmet>
 
-        <Header /> {/* Não passa sectionRef para Header */}
-        <Hero sectionRef={homeRef} />
-        <Services sectionRef={servicesRef} />
-        <Testimonials sectionRef={testimonialsRef} />
-        <Location sectionRef={locationRef} />
-        <Contact sectionRef={contactRef} />
-        <Footer />
-        <WhatsappButton />
-        <Toaster /> {/* O componente Toaster precisa ser renderizado aqui */}
-        {/* <Sonner /> */} {/* Se você usar o Sonner, descomente e renderize aqui */}
-      </>
-    // </TooltipProvider>
-    // </QueryClientProvider>
+      <Header /> {/* Header não precisa de sectionRef */}
+      <Hero sectionRef={homeRef} />
+      <Services sectionRef={servicesRef} />
+      <Testimonials sectionRef={testimonialsRef} />
+      <Location sectionRef={locationRef} />
+      <Contact sectionRef={contactRef} />
+      <Footer />
+      <WhatsappButton />
+      <Toaster /> {/* Renderiza o componente Toaster para exibir as mensagens */}
+    </>
   );
 };
 

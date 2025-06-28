@@ -1,16 +1,23 @@
-// src/components/ServiceCard.jsx
 import React from 'react';
 
-const ServiceCard = ({ icon, title, description, altText }) => {
+interface ServiceCardProps {
+  icon: React.ElementType; // Tipo para componentes de ícone (Lucide)
+  title: string;
+  description: string;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, description }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center">
-      {/* Para ícones, se forem SVG ou Font Awesome, não precisam de alt. */}
-      {/* Se for uma imagem real, use altText */}
-      <div className="text-primary-blue text-4xl mb-4">
-        {icon} {/* Renderiza o ícone passado como prop */}
+    <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
+      <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-blue to-blue-600 rounded-lg mb-6 group-hover:from-blue-600 group-hover:to-primary-blue transition-all duration-300">
+        <Icon className="w-8 h-8 text-white" />
       </div>
-      <h3 className="text-xl font-semibold text-dark-gray mb-2">{title}</h3>
-      <p className="text-text-color text-base">{description}</p>
+      <h3 className="text-2xl font-bold text-dark-gray mb-4 group-hover:text-primary-blue transition-colors">
+        {title}
+      </h3>
+      <p className="text-text-color leading-relaxed">
+        {description}
+      </p>
     </div>
   );
 };
