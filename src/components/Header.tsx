@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import logo from '../assets/images/logo.png'; // Adjust the path as necessary
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,10 +28,11 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-red-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">CP</span>
-            </div>
-            <span className="text-2xl font-bold text-gray-800">CleanPro</span>
+            <img 
+              src={logo}
+              alt="Logo TNG Higienização"
+              style={{ width: '100px' }}
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -39,31 +41,25 @@ const Header = () => {
               onClick={() => scrollToSection('home')}
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
-              Home
+              Início
             </button>
             <button 
               onClick={() => scrollToSection('services')}
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
-              Services
-            </button>
-            <button 
-              onClick={() => scrollToSection('testimonials')}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            >
-              Testimonials
+              Nossos Serviços
             </button>
             <button 
               onClick={() => scrollToSection('location')}
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
-              Location
+              Localização
             </button>
             <button 
               onClick={() => scrollToSection('contact')}
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
-              Contact
+              Contato
             </button>
           </nav>
 

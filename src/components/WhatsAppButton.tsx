@@ -2,8 +2,8 @@
 import React from 'react';
 
 const WhatsAppButton = () => {
-  const phoneNumber = "5511999999999"; // Format: country code + area code + number (no spaces or special characters)
-  const message = "Hi! I'm interested in CleanPro's cleaning services. Could you please provide more information?";
+  const phoneNumber = "5511949806203"; // Format: country code + area code + number (no spaces or special characters)
+  const message = "Olá, vim pelo seu site, gostaria de um orçamento?";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
@@ -25,7 +25,7 @@ const WhatsAppButton = () => {
       
       {/* Tooltip */}
       <div className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-        Chat with us on WhatsApp
+        Chame no WhatsApp
         <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
       </div>
     </a>

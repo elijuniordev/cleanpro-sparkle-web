@@ -6,33 +6,33 @@ const Services = () => {
   const services = [
     {
       icon: Home,
-      title: "Upholstery Cleaning",
-      description: "Professional cleaning for sofas, chairs, and all fabric furniture to restore their original beauty and freshness."
+      title: "Limpeza e Higienização de Estofados",
+      description: "Limpeza profissional profunda para sofás, cadeiras, pufes e todos os móveis estofados em Osasco/SP. Removemos sujeira, manchas e alérgenos para restaurar a beleza e o frescor originais."
     },
     {
       icon: Home,
-      title: "Mattress Cleaning",
-      description: "Deep cleaning and sanitization of mattresses to ensure a healthy and comfortable sleeping environment."
+      title: "Limpeza Profunda e Higienização de Colchões",
+      description: "Limpeza profunda e higienização especializada de colchões em Osasco/SP, eliminando ácaros, alérgenos e odores. Garanta um ambiente de sono verdadeiramente saudável e confortável para sua família."
     },
     {
       icon: Home,
-      title: "Carpet & Rug Cleaning",
-      description: "Thorough carpet cleaning using advanced techniques to remove stains, odors, and allergens effectively."
+      title: "Lavagem e Limpeza Profunda de Tapetes e Carpetes",
+      description: "Lavagem completa e limpeza profunda para tapetes e carpetes de todos os tipos em Osasco/SP. Utilizamos técnicas avançadas para remover eficazmente sujeira, manchas difíceis, odores e alérgenos, restaurando sua aparência original."
     },
     {
       icon: Car,
-      title: "Automotive Interior Cleaning",
-      description: "Complete car interior detailing including seats, carpets, and dashboard for a fresh driving experience."
+      title: "Higienização e Detalhamento Automotivo Interno",
+      description: "Serviços completos de detalhamento e higienização profissional do interior do seu veículo em Osasco/SP, incluindo bancos, carpetes, teto e painel. Desfrute de uma experiência de condução verdadeiramente fresca, limpa e saudável."
     },
     {
       icon: Home,
-      title: "General Residential Cleaning",
-      description: "Comprehensive home cleaning services covering all areas to maintain a spotless living environment."
+      title: "Limpeza Residencial Especializada",
+      description: "Serviços de limpeza residencial direcionados em Osasco/SP, com foco na limpeza profunda de áreas chave. Ajudamos a manter um ambiente de vida impecável e higiênico, complementando nossos serviços especializados em estofados."
     },
     {
       icon: Users,
-      title: "Commercial Cleaning",
-      description: "Professional office and commercial space cleaning to maintain a productive and hygienic workplace."
+      title: "Limpeza Comercial e de Escritórios",
+      description: "Serviços profissionais de limpeza e manutenção para escritórios e espaços comerciais em Osasco/SP e regiões próximas. Garanta um local de trabalho produtivo, higiênico e acolhedor para sua equipe e clientes."
     }
   ];
 
@@ -41,11 +41,10 @@ const Services = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            Our Comprehensive Cleaning Services
+            Nossos Serviços Especializados de Limpeza e Higienização
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            From residential to commercial spaces, we provide specialized cleaning solutions 
-            tailored to meet your specific needs with professional excellence.
+            Para residências, empresas e veículos em Osasco/SP e região, oferecemos soluções profissionais de limpeza e higienização, personalizadas para atender às suas necessidades com excelência incomparável.
           </p>
         </div>
 
