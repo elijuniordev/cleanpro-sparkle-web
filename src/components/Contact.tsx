@@ -1,6 +1,6 @@
 import React, { useState, RefObject } from 'react';
 import { Phone, MapPin, Mail } from 'lucide-react';
-import { useToast } from '../hooks/use-toast';
+import { useToast } from '../hooks/use-toast'; // O hook useToast
 
 interface ContactProps {
   sectionRef: RefObject<HTMLElement>;
@@ -29,6 +29,7 @@ const Contact: React.FC<ContactProps> = ({ sectionRef }) => {
     toast({
       title: "Mensagem Enviada!",
       description: "Obrigado por entrar em contato com a CleanPro. Retornaremos em breve!",
+      duration: 5000, // Duração de 5 segundos
     });
     setFormData({
       name: '',
