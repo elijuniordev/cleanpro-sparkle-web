@@ -1,6 +1,6 @@
 // src/main.tsx
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react'; // Necessário para React.StrictMode
+import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async'; // Importe HelmetProvider
 import App from './App.tsx';
 import './index.css';
@@ -10,13 +10,11 @@ const container = document.getElementById("root");
 if (!container) {
   throw new Error("Element with ID 'root' not found in the document.");
 }
-const root = createRoot(container);
+const root = ReactDOM.createRoot(container);
 
 root.render(
-  // Use React.StrictMode para boas práticas de desenvolvimento (opcional, mas recomendado)
-  // Envolva seu App com HelmetProvider
   <React.StrictMode>
-    <HelmetProvider>
+    <HelmetProvider> {/* Envolva seu App com HelmetProvider */}
       <App />
     </HelmetProvider>
   </React.StrictMode>

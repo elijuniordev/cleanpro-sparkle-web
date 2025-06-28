@@ -1,10 +1,20 @@
-// src/components/Hero.jsx
-import React from 'react';
+// src/components/Hero.tsx
+import React, { RefObject } from 'react';
 
-const Hero = () => {
+interface HeroProps {
+  sectionRef: RefObject<HTMLElement>;
+}
+
+const Hero: React.FC<HeroProps> = ({ sectionRef }) => {
   return (
-    <section id="home" className="bg-cover bg-center bg-no-repeat text-white text-center py-20 md:py-32 relative"
-      style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/hero-background.jpg')" }} // Use sua imagem de fundo
+    <section
+      id="home"
+      ref={sectionRef}
+      className="bg-cover bg-center bg-no-repeat text-white text-center py-20 md:py-32 relative"
+      // Mantenha assim se sua imagem se chamar 'hero-background.jpg' e estiver na pasta public
+      style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/hero-background.jpg')" }}
+      // Se sua imagem estiver em 'public/imagens/fundo.png', então use:
+      // style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/imagens/fundo.png')" }}
     >
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight animate-fade-in">
