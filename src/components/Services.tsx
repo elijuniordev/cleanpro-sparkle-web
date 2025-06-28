@@ -1,7 +1,6 @@
 import React, { RefObject } from 'react';
 import ServiceCard from './ServiceCard';
 
-// Importe os ícones do Lucide que você deseja usar para cada serviço
 import { Home, Car, Bed, Sofa, Component, Building2 } from 'lucide-react';
 
 interface ServicesProps {
@@ -21,7 +20,7 @@ const Services: React.FC<ServicesProps> = ({ sectionRef }) => {
       description: "Limpeza profunda e higienização especializada de colchões em Osasco/SP, eliminando ácaros, alérgenos e odores. Garanta um ambiente de sono verdadeiramente saudável e confortável para sua família."
     },
     {
-      icon: Component, // Ou outro ícone Lucide que represente tapetes/carpetes
+      icon: Component,
       title: "Lavagem e Limpeza Profunda de Tapetes e Carpetes",
       description: "Lavagem completa e limpeza profunda para tapetes e carpetes de todos os tipos em Osasco/SP. Utilizamos técnicas avançadas para remover eficazmente sujeira, manchas difíceis, odores e alérgenos, restaurando sua aparência original."
     },
@@ -55,7 +54,7 @@ const Services: React.FC<ServicesProps> = ({ sectionRef }) => {
             <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span>
           </h2>
           <p className="text-xl text-text-color max-w-3xl mx-auto mt-4">
-            Para residências, empresas e veículos em Osasco/SP e região, oferecemos soluções profissionais de limpeza e higienização, personalizadas para atender às suas necessidades com excelência incomparável.
+            Para residências, empresas e veículos em Osasco/SP e região, a **TNG Higienização** oferece soluções profissionais de limpeza e higienização, personalizadas para atender às suas necessidades com excelência incomparável.
           </p>
         </div>
 

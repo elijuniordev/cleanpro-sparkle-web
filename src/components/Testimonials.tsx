@@ -7,7 +7,7 @@ interface TestimonialsProps {
 const Testimonials: React.FC<TestimonialsProps> = ({ sectionRef }) => {
   const testimonials = [
     {
-      quote: "Fiquei impressionada com a qualidade da limpeza do meu sofá! Parecia novo de novo. Recomendo a CleanPro para todos em Osasco!",
+      quote: "Fiquei impressionada com a qualidade da limpeza do meu sofá! Parecia novo de novo. Recomendo a TNG Higienização para todos em Osasco!",
       name: "Maria Silva",
       role: "Cliente Residencial - Osasco/SP"
     },
@@ -17,12 +17,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({ sectionRef }) => {
       role: "Cliente Automotivo - Carapicuíba/SP"
     },
     {
-      quote: "Contratamos a CleanPro para a limpeza dos estofados do nosso escritório e o resultado foi excelente. Profissionalismo e eficiência!",
+      quote: "Contratamos a TNG Higienização para a limpeza dos estofados do nosso escritório e o resultado foi excelente. Profissionalismo e eficiência!",
       name: "Ana Costa",
       role: "Gerente de Escritório - Barueri/SP"
     },
     {
-      quote: "Meu colchão estava com manchas antigas e a CleanPro conseguiu remover tudo. Agora durmo muito melhor! Serviço de primeira.",
+      quote: "Meu colchão estava com manchas antigas e a TNG Higienização conseguiu remover tudo. Agora durmo muito melhor! Serviço de primeira.",
       name: "Pedro Almeida",
       role: "Cliente Residencial - Cotia/SP"
     }
@@ -41,7 +41,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ sectionRef }) => {
             <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span>
           </h2>
           <p className="text-xl text-text-color max-w-3xl mx-auto mt-4">
-            A satisfação dos nossos clientes é a nossa maior recompensa. Veja alguns depoimentos de quem já experimentou a excelência dos serviços da CleanPro em Osasco/SP e região.
+            A satisfação dos nossos clientes é a nossa maior recompensa. Veja alguns depoimentos de quem já experimentou a excelência dos serviços da **TNG Higienização** em Osasco/SP e região.
           </p>
         </div>
 
