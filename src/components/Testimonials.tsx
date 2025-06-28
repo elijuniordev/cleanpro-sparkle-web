@@ -1,69 +1,80 @@
+import React, { RefObject } from 'react'; // Importe RefObject
 
-import React from 'react';
+// Defina a interface de props para o componente Testimonials
+interface TestimonialsProps {
+  sectionRef: RefObject<HTMLElement>;
+}
 
-const Testimonials = () => {
+const Testimonials: React.FC<TestimonialsProps> = ({ sectionRef }) => { // Aceite a prop sectionRef
   const testimonials = [
     {
-      quote: "CleanPro transformed our office space completely! Their attention to detail and professionalism is unmatched. Our carpets look brand new and the entire office feels fresh and clean.",
+      // Adicione a localidade do cliente para SEO local, se possível e real
+      quote: "A CleanPro transformou completamente nosso escritório em Osasco! A atenção aos detalhes e o profissionalismo são inigualáveis. Nossos carpetes parecem novos e todo o ambiente se sente fresco e limpo.",
       name: "Maria Santos",
-      role: "Office Manager"
+      role: "Gerente de Escritório, Osasco/SP"
     },
     {
-      quote: "I was amazed by their upholstery cleaning service. My old sofa looked hopeless, but CleanPro brought it back to life. Excellent work and very reasonable prices!",
+      quote: "Fiquei impressionado com o serviço de limpeza de estofados deles. Meu sofá antigo parecia sem esperança, mas a CleanPro o trouxe de volta à vida. Trabalho excelente e preços muito razoáveis!",
       name: "João Silva",
-      role: "Homeowner"
+      role: "Morador, Barueri/SP" // Exemplo de cidade vizinha
     },
     {
-      quote: "Their car interior cleaning service is fantastic! My vehicle's seats and carpets were in terrible condition, but now they look and smell like new. Highly recommended!",
+      quote: "O serviço de higienização interna do meu carro é fantástico! Os bancos e carpetes do meu veículo estavam em péssimas condições, mas agora parecem e cheiram como novos. Altamente recomendado em Osasco!",
       name: "Ana Costa",
-      role: "Business Owner"
+      role: "Empresária, Carapicuíba/SP" // Exemplo de cidade vizinha
     },
     {
-      quote: "CleanPro's mattress cleaning service helped my family sleep better. They removed all allergens and odors professionally. Truly a game-changer for our home comfort!",
+      quote: "A limpeza de colchão da CleanPro ajudou minha família a dormir melhor em Osasco. Eles removeram todos os alérgenos e odores profissionalmente. Verdadeiramente uma mudança para o conforto da nossa casa!",
       name: "Carlos Rodrigues",
-      role: "Father of Two"
+      role: "Pai de Dois, Osasco/SP"
     }
   ];
 
   return (
-    <section id="testimonials" className="py-20 bg-white">
+    <section
+      id="testimonials"
+      ref={sectionRef} // ATRIBUIÇÃO DA REF AQUI!
+      className="py-20 md:py-24 bg-light-gray text-center" // Ajustado para usar bg-light-gray
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            What Our Clients Say
+          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-4 relative inline-block"> {/* Ajustado para usar text-dark-gray */}
+            O Que Nossos Clientes Dizem em Osasco/SP
+            {/* Linha decorativa abaixo do título */}
+            <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span> {/* Ajustado para usar bg-primary-blue */}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Don't just take our word for it. Here's what our satisfied customers 
-            have to say about our professional cleaning services.
+          <p className="text-xl text-text-color max-w-3xl mx-auto mt-4"> {/* Ajustado para usar text-text-color */}
+            Não confie apenas em nossas palavras. Veja o que nossos clientes satisfeitos em Osasco e região têm a dizer sobre nossos serviços profissionais de limpeza e higienização.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div 
+            <div
               key={index}
-              className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
             >
               <div className="mb-6">
-                <div className="flex text-blue-500 mb-4">
+                <div className="flex text-primary-blue mb-4"> {/* Ajustado para usar text-primary-blue */}
+                  {/* Ícones de estrela */}
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                     </svg>
                   ))}
                 </div>
-                <blockquote className="text-gray-700 text-lg leading-relaxed italic">
+                <blockquote className="text-text-color text-lg leading-relaxed italic"> {/* Ajustado para usar text-text-color */}
                   "{testimonial.quote}"
                 </blockquote>
               </div>
-              
+
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary-blue to-secondary-red rounded-full flex items-center justify-center text-white font-bold text-lg mr-4"> {/* Ajustado para usar primary-blue e secondary-red */}
                   {testimonial.name.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-800">{testimonial.name}</h4>
-                  <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                  <h4 className="font-bold text-dark-gray">{testimonial.name}</h4> {/* Ajustado para usar text-dark-gray */}
+                  <p className="text-text-color text-sm">{testimonial.role}</p> {/* Ajustado para usar text-text-color */}
                 </div>
               </div>
             </div>

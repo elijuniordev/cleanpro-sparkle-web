@@ -1,9 +1,13 @@
+import React, { useState, RefObject } from 'react'; // Importe RefObject
+import { Phone, MapPin, Mail } from 'lucide-react'; // Adicione Mail para o ícone de email
+import { useToast } from '../hooks/use-toast'; // Mantenha, pois você está usando
 
-import React, { useState } from 'react';
-import { Phone, MapPin } from 'lucide-react';
-import { useToast } from '../hooks/use-toast';
+// Defina a interface de props para o componente Contact
+interface ContactProps {
+  sectionRef: RefObject<HTMLElement>;
+}
 
-const Contact = () => {
+const Contact: React.FC<ContactProps> = ({ sectionRef }) => { // Aceite a prop sectionRef
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,10 +26,11 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log('Formulário enviado:', formData); // Log em português
+    // Aqui você integraria com um serviço de backend (e.g., e-mail, CRM)
     toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting CleanPro. We'll get back to you soon!",
+      title: "Mensagem Enviada!",
+      description: "Obrigado por entrar em contato com a CleanPro. Retornaremos em breve!",
     });
     setFormData({
       name: '',
@@ -37,93 +42,97 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section
+      id="contact"
+      ref={sectionRef} // ATRIBUIÇÃO DA REF AQUI!
+      className="py-20 md:py-24 bg-white text-center" // Mantido bg-white
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            Get in Touch With Us
+          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-4 relative inline-block"> {/* Ajustado para text-dark-gray */}
+            Fale Conosco em Osasco/SP
+            {/* Linha decorativa abaixo do título */}
+            <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span> {/* Ajustado para bg-primary-blue */}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to experience professional cleaning services? Contact us today 
-            for a free quote and let us make your space sparkle!
+          <p className="text-xl text-text-color max-w-3xl mx-auto mt-4"> {/* Ajustado para text-text-color */}
+            Pronto para experimentar serviços profissionais de limpeza e higienização? Entre em contato hoje mesmo para um orçamento gratuito e deixe seu ambiente impecável! Atendemos Osasco/SP e toda a região.
           </p>
         </div>
 
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
+            {/* Informações de Contato */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-blue-50 to-red-50 rounded-xl p-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
-                
+              <div className="bg-gradient-to-br from-blue-50 to-red-50 rounded-xl p-8"> {/* Mantido, mas pode ajustar para light-gray ou cores da paleta */}
+                <h3 className="text-2xl font-bold text-dark-gray mb-6">Informações de Contato</h3> {/* Ajustado para text-dark-gray */}
+
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-primary-blue rounded-lg flex items-center justify-center"> {/* Ajustado para bg-primary-blue */}
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-800">Phone</h4>
-                      <p className="text-gray-600">+55 11 99999-9999</p>
+                      <h4 className="font-semibold text-dark-gray">Telefone</h4> {/* Ajustado para text-dark-gray */}
+                      <a href="tel:+5511999999999" className="text-text-color hover:text-primary-blue transition-colors duration-300 text-base md:text-lg">+55 11 99999-9999</a> {/* ATUALIZE COM SEU NÚMERO REAL. Ajustado para text-text-color e hover */}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                      </svg>
+                    <div className="w-12 h-12 bg-secondary-red rounded-lg flex items-center justify-center"> {/* Ajustado para bg-secondary-red */}
+                      {/* O ícone de email padrão do lucide-react é "Mail" */}
+                      <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-800">Email</h4>
-                      <p className="text-gray-600">contact@cleanpro.com</p>
+                      <h4 className="font-semibold text-dark-gray">Email</h4> {/* Ajustado para text-dark-gray */}
+                      <a href="mailto:contato@cleanpro.com.br" className="text-text-color hover:text-primary-blue transition-colors duration-300 text-base md:text-lg">contato@cleanpro.com.br</a> {/* ATUALIZE COM SEU EMAIL REAL. Ajustado para text-text-color e hover */}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-whatsapp-green rounded-lg flex items-center justify-center"> {/* Ajustado para bg-whatsapp-green (assumindo que já adicionou no tailwind.config.js) */}
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-800">Address</h4>
-                      <p className="text-gray-600">Rua Exemplo, 123 - Centro<br />Osasco - SP, 06000-000</p>
+                      <h4 className="font-semibold text-dark-gray">Endereço</h4> {/* Ajustado para text-dark-gray */}
+                      <p className="text-text-color text-base md:text-lg">Rua Exemplo, 123 - Centro<br />Osasco - SP, 06000-000</p> {/* ATUALIZE COM SEU ENDEREÇO REAL. Ajustado para text-text-color */}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-600 to-red-600 rounded-xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-4">Why Choose CleanPro?</h3>
-                <ul className="space-y-3">
+              {/* Seção "Por que Escolher a CleanPro?" */}
+              <div className="bg-gradient-to-r from-primary-blue to-secondary-red rounded-xl p-8 text-white"> {/* Ajustado para primary-blue e secondary-red */}
+                <h3 className="text-2xl font-bold mb-4">Por Que Escolher a CleanPro?</h3>
+                <ul className="space-y-3 text-base md:text-lg">
                   <li className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>Professional and experienced team</span>
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div> {/* flex-shrink-0 para evitar encolher */}
+                    <span>Equipe profissional e experiente em higienização.</span>
                   </li>
                   <li className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>Eco-friendly cleaning products</span>
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
+                    <span>Produtos de limpeza ecológicos e seguros.</span>
                   </li>
                   <li className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>Competitive pricing</span>
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
+                    <span>Preços competitivos e transparência no serviço.</span>
                   </li>
                   <li className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>100% satisfaction guarantee</span>
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
+                    <span>100% de garantia de satisfação do cliente.</span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="bg-gray-50 rounded-xl p-8">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">Request a Free Quote</h3>
-              
+            {/* Formulário de Contato */}
+            <div className="bg-light-gray rounded-xl p-8 shadow-lg"> {/* Ajustado para bg-light-gray e adicionado shadow-lg */}
+              <h3 className="text-2xl font-bold text-dark-gray mb-6">Solicite um Orçamento Gratuito</h3> {/* Ajustado para text-dark-gray */}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Full Name *
+                    <label htmlFor="name" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                      Nome Completo *
                     </label>
                     <input
                       type="text"
@@ -132,14 +141,14 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                      placeholder="Your full name"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color" 
+                      placeholder="Seu nome completo"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address *
+                    <label htmlFor="email" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                      Endereço de E-mail *
                     </label>
                     <input
                       type="email"
@@ -148,16 +157,16 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                      placeholder="your@email.com"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color" 
+                      placeholder="seu@email.com"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number
+                    <label htmlFor="phone" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                      Número de Telefone
                     </label>
                     <input
                       type="tel"
@@ -165,36 +174,36 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color"
                       placeholder="+55 11 99999-9999"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                      Service Needed
+                    <label htmlFor="service" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                      Serviço Desejado
                     </label>
                     <select
                       id="service"
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors text-text-color bg-white" 
                     >
-                      <option value="">Select a service</option>
-                      <option value="upholstery">Upholstery Cleaning</option>
-                      <option value="mattress">Mattress Cleaning</option>
-                      <option value="carpet">Carpet & Rug Cleaning</option>
-                      <option value="automotive">Automotive Interior</option>
-                      <option value="residential">Residential Cleaning</option>
-                      <option value="commercial">Commercial Cleaning</option>
+                      <option value="">Selecione um serviço</option>
+                      <option value="estofados">Limpeza de Estofados</option>
+                      <option value="colchao">Higienização de Colchão</option>
+                      <option value="tapete">Lavagem de Tapetes e Carpetes</option>
+                      <option value="automotivo">Higienização Automotiva</option>
+                      <option value="residencial">Limpeza Residencial</option>
+                      <option value="comercial">Limpeza Comercial</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message
+                  <label htmlFor="message" className="block text-sm font-medium text-text-color mb-2"> {/* Ajustado para text-text-color */}
+                    Mensagem
                   </label>
                   <textarea
                     id="message"
@@ -202,16 +211,16 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-                    placeholder="Tell us about your cleaning needs..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-colors resize-none text-text-color" 
+                    placeholder="Descreva suas necessidades de limpeza..."
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-red-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105"
+                  className="w-full bg-gradient-to-r from-primary-blue to-secondary-red text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-primary-blue-hover hover:to-secondary-red-hover transition-all duration-300 transform hover:scale-105" // Ajustado para primary-blue/secondary-red e hovers customizados
                 >
-                  Send Message & Get Free Quote
+                  Enviar Mensagem & Solicitar Orçamento
                 </button>
               </form>
             </div>
