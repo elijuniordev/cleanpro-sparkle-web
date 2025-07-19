@@ -1,6 +1,7 @@
+// src/pages/Index.tsx
 import React, { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Toaster } from '@/components/ui/toaster';
+// import { Toaster } from '@/components/ui/toaster'; // REMOVA esta importação
 
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -38,13 +39,13 @@ const IndexPage: React.FC = () => {
     <>
       <Helmet>
         <title>TNG Clean Higienização | Limpeza de Estofados em Osasco/SP e Região</title>
-        <meta 
-          name="description" 
-          content="Higienização profissional de sofás, colchões, tapetes e veículos em Osasco/SP e região. Deixe seu ambiente renovado e livre de ácaros. Peça seu orçamento!" 
+        <meta
+          name="description"
+          content="Higienização profissional de sofás, colchões, tapetes e veículos em Osasco/SP e região. Deixe seu ambiente renovado e livre de ácaros. Peça seu orçamento!"
         />
-        <meta 
-          name="keywords" 
-          content="higienização de estofados osasco, limpeza de sofá osasco, limpeza de sofá barueri, limpeza de sofá carapicuíba, higienização automotiva cotia, limpeza de colchão jandira, tng clean, limpeza de estofados alphaville, higienização granja viana" 
+        <meta
+          name="keywords"
+          content="higienização de estofados osasco, limpeza de sofá osasco, limpeza de sofá barueri, limpeza de sofá carapicuíba, higienização automotiva cotia, limpeza de colchão jandira, tng clean, limpeza de estofados alphaville, higienização granja viana"
         />
         <meta property="og:title" content="TNG Clean Higienização | Limpeza Profissional em Osasco e Região" />
         <meta property="og:description" content="Serviço especializado de limpeza profunda em sofás, colchões e veículos em Osasco, SP e região. Elimine manchas, odores e ácaros." />
@@ -54,33 +55,33 @@ const IndexPage: React.FC = () => {
       </Helmet>
 
       <Header refs={sectionRefs} />
-      
+
       <main>
         {/* CORREÇÃO: Adicionada a classe 'scroll-mt-[144px]' em todas as seções */}
         <section id="inicio" ref={inicioRef} className="scroll-mt-[144px]">
           <Hero refs={sectionRefs} />
         </section>
-        
+
         <section id="servicos" ref={servicosRef} className="scroll-mt-[144px]">
           <Services />
         </section>
-        
+
         <section id="depoimentos" ref={depoimentosRef} className="scroll-mt-[144px]">
           <Testimonials />
         </section>
-        
+
         <section id="localizacao" ref={localizacaoRef} className="scroll-mt-[144px]">
           <Location />
         </section>
-        
+
         <section id="contato" ref={contatoRef} className="scroll-mt-[144px]">
           <Contact />
         </section>
       </main>
-      
+
       <Footer />
       <WhatsappButton />
-      <Toaster />
+      {/* <Toaster /> REMOVA esta linha */}
     </>
   );
 };
