@@ -1,38 +1,40 @@
 // src/components/Layout.tsx
 import React, { useRef } from 'react';
-import { Helmet } from 'react-helmet-async'; // Se o Helmet for comum a todas as páginas
+import { Helmet } from 'react-helmet-async';
 import Header from './Header';
 import Footer from './Footer';
 import WhatsappButton from './WhatsAppButton';
-// Importe SectionRefs se for necessário para o Header/Footer
 import { SectionRefs } from '../pages/Index'; // Ajuste o caminho conforme necessário
+import { cn } from '@/lib/utils'; // Importe a função cn
 
 interface LayoutProps {
   children: React.ReactNode;
-  // Você pode passar refs aqui ou criar um contexto se muitos componentes precisarem deles
   refs?: SectionRefs;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, refs }) => {
-  // Se seus refs são específicos do IndexPage, eles não deveriam estar aqui
-  // Ou você precisará de uma estratégia diferente para scroll-to-section global
-  // Para simplificar, vou remover os refs daqui, se eles não forem genéricos.
-  // Se forem, você pode defini-los aqui e passá-los para o Header.
+  // Use useEffect para aplicar classes ao body
+  React.useEffect(() => {
+    // Você pode ajustar 'bg-gray-100' para a cor ou imagem de fundo que deseja.
+    // 'min-h-screen' garante que o body tenha pelo menos a altura da tela.
+    // 'antialiased' é uma classe comum do Tailwind para suavizar fontes.
+    document.body.className = cn(
+      "min-h-screen bg-gray-100 antialiased" // <-- Classes de fundo aplicadas aqui
+    );
+  }, []); // O array vazio garante que isso execute apenas uma vez na montagem
 
   return (
     <>
-      {/* Se o Helmet for o mesmo para todas as páginas, mantenha aqui.
-          Caso contrário, as páginas devem definir seu próprio Helmet. */}
       <Helmet>
         <title>TNG Clean Higienização</title>
         <meta name="description" content="Serviços de higienização profissional." />
         {/* Outras meta tags comuns */}
       </Helmet>
 
-      <Header refs={refs} /> {/* Passe os refs se o Header precisar deles */}
+      <Header refs={refs} />
 
-      <main>
-        {children} {/* Aqui o conteúdo específico da página será renderizado */}
+      <main> {/* O conteúdo específico de cada página será renderizado dentro desta main */}
+        {children}
       </main>
 
       <Footer />

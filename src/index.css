@@ -1,3 +1,4 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,3 +9,4 @@ html {
 body {
   font-family: 'Roboto', sans-serif; /* Usando fontes importadas via Google Fonts no index.html */
 }
+/* A classe de fundo agora é aplicada no Layout.tsx usando `cn` */

@@ -1,104 +1,69 @@
-import React, { useState, useEffect } from 'react';
-// Garantindo que estamos importando o arquivo de logo correto do seu projeto.
-import logo from '../assets/images/logo.png';
-import { Menu, X } from 'lucide-react';
+// src/components/Header.tsx
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom'; // Importe useLocation
+import { Button } from './ui/button'; // Exemplo de importação de botão
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'; // Se você usa um menu responsivo
+import { Menu } from 'lucide-react';
+
+// Importe SectionRefs de onde ele é definido (provavelmente Index.tsx)
 import { SectionRefs } from '../pages/Index';
 
 interface HeaderProps {
-  refs: SectionRefs;
+  refs?: SectionRefs; // refs agora é opcional
 }
 
 const Header: React.FC<HeaderProps> = ({ refs }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation(); // Hook para obter a localização atual
 
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+  // Função para rolar até a seção, só se os refs existirem E estiver na homepage
+  const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
+    if (ref && ref.current && location.pathname === '/') { // Só rola se estiver na homepage
+      ref.current.scrollIntoView({ behavior: 'smooth' });
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  const handleScrollTo = (ref: React.RefObject<HTMLElement>) => {
-    ref.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-    closeMobileMenu();
-  };
-  
-  const navLinks = [
-    { href: '#inicio', ref: refs.inicioRef, label: 'Início' },
-    { href: '#servicos', ref: refs.servicosRef, label: 'Serviços' },
-    { href: '#depoimentos', ref: refs.depoimentosRef, label: 'Depoimentos' },
-    { href: '#localizacao', ref: refs.localizacaoRef, label: 'Localização' },
-    { href: '#contato', ref: refs.contatoRef, label: 'Contato' },
-  ];
 
   return (
-    // APLICAÇÃO DA PALETA: Usando as novas cores semânticas.
-    <header className="bg-text-primary text-text-white p-4 sticky top-0 z-50 shadow-md">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <a href="#inicio" className="flex items-center" onClick={(e) => { e.preventDefault(); handleScrollTo(refs.inicioRef); }}>
-          {/* Ajustado o tamanho do logo para o que você tinha originalmente, que era maior. */}
-          <img src={logo} alt="TNG Clean Higienização Logo" className="h-20 md:h-28 lg:h-32" />
-        </a>
+    <header className="bg-white shadow-md p-4 sticky top-0 z-50">
+      <nav className="container mx-auto flex justify-between items-center">
+        <Link to="/" className="text-2xl font-bold text-gray-800">TNG Clean</Link>
 
-        <button
-          className="md:hidden text-text-white text-3xl focus:outline-none z-[1001]"
-          onClick={toggleMobileMenu}
-          aria-label={isMobileMenuOpen ? "Fechar Menu" : "Abrir Menu"}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
+        {/* Links de navegação para desktop */}
+        <div className="hidden md:flex space-x-6">
+          {/* Altere os links para usar Link do react-router-dom
+              e chame scrollToSection condicionalmente */}
+          <Link to="/" onClick={() => scrollToSection(refs?.inicioRef)} className="text-gray-600 hover:text-blue-600">Início</Link>
+          <Link to="/" onClick={() => scrollToSection(refs?.servicosRef)} className="text-gray-600 hover:text-blue-600">Serviços</Link>
+          <Link to="/" onClick={() => scrollToSection(refs?.depoimentosRef)} className="text-gray-600 hover:text-blue-600">Depoimentos</Link>
+          <Link to="/" onClick={() => scrollToSection(refs?.localizacaoRef)} className="text-gray-600 hover:text-blue-600">Localização</Link>
+          <Link to="/" onClick={() => scrollToSection(refs?.contatoRef)} className="text-gray-600 hover:text-blue-600">Contato</Link>
+          <Link to="/links" className="text-gray-600 hover:text-blue-600">Links</Link> {/* Exemplo de link para outra página */}
+        </div>
 
-        <nav className="hidden md:block">
-          <ul className="flex space-x-6 lg:space-x-8">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a 
-                  href={link.href} 
-                  // APLICAÇÃO DA PALETA: Usando as novas cores semânticas para texto e hover.
-                  className="text-text-white hover:text-brand-blue-light transition-colors duration-300 text-lg"
-                  onClick={(e) => { e.preventDefault(); handleScrollTo(link.ref); }}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+        {/* Botão de contato (exemplo) */}
+        <Button className="hidden md:block">Orçamento</Button>
 
-      {isMobileMenuOpen && (
-        // APLICAÇÃO DA PALETA: Usando bg-text-primary com 95% de opacidade.
-        <nav className="md:hidden fixed inset-0 bg-text-primary/95 z-[1000] flex flex-col items-center justify-center p-8">
-          <ul className="flex flex-col space-y-6 text-2xl text-center">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a 
-                  href={link.href} 
-                  className="text-text-white hover:text-brand-blue-light transition-colors duration-300"
-                  onClick={(e) => { e.preventDefault(); handleScrollTo(link.ref); }}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+        {/* Menu responsivo para mobile */}
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <nav className="flex flex-col gap-4 py-6">
+                <Link to="/" onClick={() => scrollToSection(refs?.inicioRef)} className="text-gray-600 hover:text-blue-600">Início</Link>
+                <Link to="/" onClick={() => scrollToSection(refs?.servicosRef)} className="text-gray-600 hover:text-blue-600">Serviços</Link>
+                <Link to="/" onClick={() => scrollToSection(refs?.depoimentosRef)} className="text-gray-600 hover:text-blue-600">Depoimentos</Link>
+                <Link to="/" onClick={() => scrollToSection(refs?.localizacaoRef)} className="text-gray-600 hover:text-blue-600">Localização</Link>
+                <Link to="/" onClick={() => scrollToSection(refs?.contatoRef)} className="text-gray-600 hover:text-blue-600">Contato</Link>
+                <Link to="/links" className="text-gray-600 hover:text-blue-600">Links</Link>
+                <Button>Orçamento</Button>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </nav>
     </header>
   );
 };

@@ -6,14 +6,14 @@ import {
   ToastDescription,
   ToastTitle,
   ToastViewport,
-  ToastProvider, // <-- Adicione a importação do ToastProvider do Radix UI
-} from "@/components/ui/toast" // <-- Este é o ToastProvider do Radix UI
+  ToastProvider, // Adiciona a importação do ToastProvider da Radix UI
+} from "@/components/ui/toast" // Este é o ToastProvider do Radix UI
 
 export function Toaster() {
   const { toasts } = useToast()
 
   return (
-    // <--- Envolva todo o conteúdo do Toaster com o ToastProvider do Radix UI
+    // Envolve todo o conteúdo do Toaster com o ToastProvider do Radix UI
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
@@ -30,6 +30,6 @@ export function Toaster() {
         )
       })}
       <ToastViewport />
-    </ToastProvider> // <-- Feche o ToastProvider do Radix UI
+    </ToastProvider>
   )
 }

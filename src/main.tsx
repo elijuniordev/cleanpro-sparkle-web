@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { ToasterProvider } from './hooks/use-toast'; // <-- Corrigido para o caminho original do provedor
-import { Toaster } from './components/ui/toaster';
+import { ToasterProvider } from './hooks/use-toast'; // Importa o ToasterProvider do seu sistema de hooks
+import { Toaster } from './components/ui/toaster'; // Importa o componente Toaster para exibir as notificações
 import App from './App.tsx';
 import './index.css';
 
@@ -18,9 +18,9 @@ root.render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <ToasterProvider>
-          <App />
-          <Toaster />
+        <ToasterProvider> {/* Seu provedor de contexto de toast */}
+          <App /> {/* Onde suas rotas e layout são renderizados */}
+          <Toaster /> {/* Onde as notificações de toast são exibidas */}
         </ToasterProvider>
       </BrowserRouter>
     </HelmetProvider>
