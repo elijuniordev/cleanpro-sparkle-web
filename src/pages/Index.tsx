@@ -1,16 +1,13 @@
 // src/pages/Index.tsx
 import React, { useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
-// import { Toaster } from '@/components/ui/toaster'; // REMOVA esta importação
+// import { Helmet } from 'react-helmet-async'; // Remova se o Helmet for para o Layout
 
-import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
 import Testimonials from '../components/Testimonials';
 import Location from '../components/Location';
 import Contact from '../components/Contact';
-import Footer from '../components/Footer';
-import WhatsappButton from '../components/WhatsAppButton';
+// Remova importações de Header, Footer, WhatsappButton
 
 export interface SectionRefs {
   inicioRef: React.RefObject<HTMLElement>;
@@ -37,24 +34,10 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>TNG Clean Higienização | Limpeza de Estofados em Osasco/SP e Região</title>
-        <meta
-          name="description"
-          content="Higienização profissional de sofás, colchões, tapetes e veículos em Osasco/SP e região. Deixe seu ambiente renovado e livre de ácaros. Peça seu orçamento!"
-        />
-        <meta
-          name="keywords"
-          content="higienização de estofados osasco, limpeza de sofá osasco, limpeza de sofá barueri, limpeza de sofá carapicuíba, higienização automotiva cotia, limpeza de colchão jandira, tng clean, limpeza de estofados alphaville, higienização granja viana"
-        />
-        <meta property="og:title" content="TNG Clean Higienização | Limpeza Profissional em Osasco e Região" />
-        <meta property="og:description" content="Serviço especializado de limpeza profunda em sofás, colchões e veículos em Osasco, SP e região. Elimine manchas, odores e ácaros." />
-        <meta property="og:url" content="https://www.tngclean.com.br/" />
-        <meta name="author" content="TNG Clean Higienização" />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
+      {/* Se Helmet estiver no Layout, remova daqui */}
+      {/* <Helmet>...</Helmet> */}
 
-      <Header refs={sectionRefs} />
+      {/* Header foi movido para o Layout */}
 
       <main>
         {/* CORREÇÃO: Adicionada a classe 'scroll-mt-[144px]' em todas as seções */}
@@ -79,9 +62,7 @@ const IndexPage: React.FC = () => {
         </section>
       </main>
 
-      <Footer />
-      <WhatsappButton />
-      {/* <Toaster /> REMOVA esta linha */}
+      {/* Footer e WhatsappButton foram movidos para o Layout */}
     </>
   );
 };
