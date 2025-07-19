@@ -1,22 +1,27 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import IndexPage from './pages/Index';
-import LinksPage from './pages/Links';
+import LinksPage from './pages/Links'; // Sua página de links
 import NotFound from './pages/NotFound';
-import Layout from './components/Layout'; // Importa o componente de layout
+import Layout from './components/Layout'; // Importe o componente de layout
 
 function App() {
   return (
-    // O BrowserRouter é o mais externo para o roteamento,
-    // e o Layout envolve todas as rotas para um estilo consistente.
-    <Layout>
-      <Routes>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/links" element={<LinksPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Layout>
+    <Routes>
+      {/* Rotas que DEVEM ter o Header e Footer, usando o Layout */}
+      <Route
+        path="/"
+        element={
+          <Layout>
+            <IndexPage />
+          </Layout>
+        }
+      />
+      {/* Rotas que NÃO DEVEM ter o Header e Footer, renderizadas diretamente */}
+      <Route path="/links" element={<LinksPage />} />
+      <Route path="*" element={<NotFound />} /> {/* Página 404, sem layout também */}
+    </Routes>
   );
 }
 

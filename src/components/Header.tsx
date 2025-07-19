@@ -1,69 +1,138 @@
-// src/components/Header.tsx
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Importe useLocation
-import { Button } from './ui/button'; // Exemplo de importação de botão
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'; // Se você usa um menu responsivo
-import { Menu } from 'lucide-react';
-
-// Importe SectionRefs de onde ele é definido (provavelmente Index.tsx)
-import { SectionRefs } from '../pages/Index';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom'; // Importe Link e useLocation
+import logo from '../assets/images/logo.png'; // Importação do logo
+import { Menu, X } from 'lucide-react';
+import { SectionRefs } from '../pages/Index'; // Importe SectionRefs
+import { Button } from './ui/button'; // Importe Button (se usado no header)
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'; // Importe componentes do Sheet
 
 interface HeaderProps {
   refs?: SectionRefs; // refs agora é opcional
 }
 
 const Header: React.FC<HeaderProps> = ({ refs }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation(); // Hook para obter a localização atual
 
-  // Função para rolar até a seção, só se os refs existirem E estiver na homepage
-  const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
-    if (ref && ref.current && location.pathname === '/') { // Só rola se estiver na homepage
-      ref.current.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
     }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleScrollTo = (ref?: React.RefObject<HTMLElement>) => {
+    // Só tenta rolar se a página atual for a homepage ('/') E o ref existir
+    if (location.pathname === '/' && ref && ref.current) {
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+    closeMobileMenu(); // Feche o menu mobile após a ação
+  };
+
+  // Links de navegação. O item "Links" foi removido.
+  const navLinks = [
+    { href: '/', sectionRef: refs?.inicioRef, label: 'Início', targetSectionId: 'inicio' },
+    { href: '/', sectionRef: refs?.servicosRef, label: 'Serviços', targetSectionId: 'servicos' },
+    { href: '/', sectionRef: refs?.depoimentosRef, label: 'Depoimentos', targetSectionId: 'depoimentos' },
+    { href: '/', sectionRef: refs?.localizacaoRef, label: 'Localização', targetSectionId: 'localizacao' },
+    { href: '/', sectionRef: refs?.contatoRef, label: 'Contato', targetSectionId: 'contato' },
+    // { href: '/links', sectionRef: undefined, label: 'Links', targetSectionId: '' }, // <-- Linha removida
+  ];
+
   return (
-    <header className="bg-white shadow-md p-4 sticky top-0 z-50">
-      <nav className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-gray-800">TNG Clean</Link>
+    <header className="bg-text-primary text-text-white p-4 sticky top-0 z-50 shadow-md">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        {/* Link do logo para a página inicial, com rolagem para o início */}
+        <Link to="/" className="flex items-center" onClick={() => handleScrollTo(refs?.inicioRef)}>
+          <img src={logo} alt="TNG Clean Higienização Logo" className="h-20 md:h-28 lg:h-32" />
+        </Link>
+
+        {/* Botão para abrir/fechar menu mobile */}
+        <button
+          className="md:hidden text-text-white text-3xl focus:outline-none z-[1001]"
+          onClick={toggleMobileMenu}
+          aria-label={isMobileMenuOpen ? "Fechar Menu" : "Abrir Menu"}
+        >
+          {isMobileMenuOpen ? <X /> : <Menu />}
+        </button>
 
         {/* Links de navegação para desktop */}
-        <div className="hidden md:flex space-x-6">
-          {/* Altere os links para usar Link do react-router-dom
-              e chame scrollToSection condicionalmente */}
-          <Link to="/" onClick={() => scrollToSection(refs?.inicioRef)} className="text-gray-600 hover:text-blue-600">Início</Link>
-          <Link to="/" onClick={() => scrollToSection(refs?.servicosRef)} className="text-gray-600 hover:text-blue-600">Serviços</Link>
-          <Link to="/" onClick={() => scrollToSection(refs?.depoimentosRef)} className="text-gray-600 hover:text-blue-600">Depoimentos</Link>
-          <Link to="/" onClick={() => scrollToSection(refs?.localizacaoRef)} className="text-gray-600 hover:text-blue-600">Localização</Link>
-          <Link to="/" onClick={() => scrollToSection(refs?.contatoRef)} className="text-gray-600 hover:text-blue-600">Contato</Link>
-          <Link to="/links" className="text-gray-600 hover:text-blue-600">Links</Link> {/* Exemplo de link para outra página */}
-        </div>
+        <nav className="hidden md:block">
+          <ul className="flex space-x-6 lg:space-x-8">
+            {navLinks.map((link) => (
+              <li key={link.label}> {/* Use label como key ou um ID único */}
+                <Link
+                  to={link.href + (link.targetSectionId && location.pathname === '/' ? `#${link.targetSectionId}` : '')}
+                  className="text-text-white hover:text-brand-blue-light transition-colors duration-300 text-lg"
+                  onClick={(e) => {
+                    // Se o link é para uma seção na homepage E estamos na homepage
+                    if (link.sectionRef && location.pathname === '/') {
+                      e.preventDefault(); // Previne a navegação padrão para rolar
+                      handleScrollTo(link.sectionRef);
+                    } else if (link.href === location.pathname && link.targetSectionId) {
+                      // Caso o usuário esteja na homepage e clique em um link de seção da própria homepage
+                      e.preventDefault();
+                      document.getElementById(link.targetSectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    // Para links de outras páginas ou se não rolar, o 'to' do Link cuidará da navegação
+                    closeMobileMenu(); // Feche o menu mobile se aplicável
+                  }}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        {/* Botão de contato (exemplo) */}
-        <Button className="hidden md:block">Orçamento</Button>
+        {/* Botão de orçamento para desktop (se usado) */}
+        {/* <Button className="hidden md:block">Orçamento</Button> */}
 
         {/* Menu responsivo para mobile */}
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <nav className="flex flex-col gap-4 py-6">
-                <Link to="/" onClick={() => scrollToSection(refs?.inicioRef)} className="text-gray-600 hover:text-blue-600">Início</Link>
-                <Link to="/" onClick={() => scrollToSection(refs?.servicosRef)} className="text-gray-600 hover:text-blue-600">Serviços</Link>
-                <Link to="/" onClick={() => scrollToSection(refs?.depoimentosRef)} className="text-gray-600 hover:text-blue-600">Depoimentos</Link>
-                <Link to="/" onClick={() => scrollToSection(refs?.localizacaoRef)} className="text-gray-600 hover:text-blue-600">Localização</Link>
-                <Link to="/" onClick={() => scrollToSection(refs?.contatoRef)} className="text-gray-600 hover:text-blue-600">Contato</Link>
-                <Link to="/links" className="text-gray-600 hover:text-blue-600">Links</Link>
-                <Button>Orçamento</Button>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </nav>
+        {isMobileMenuOpen && (
+          <nav className="md:hidden fixed inset-0 bg-text-primary/95 z-[1000] flex flex-col items-center justify-center p-8">
+            <ul className="flex flex-col space-y-6 text-2xl text-center">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.href + (link.targetSectionId && location.pathname === '/' ? `#${link.targetSectionId}` : '')}
+                    className="text-text-white hover:text-brand-blue-light transition-colors duration-300"
+                    onClick={(e) => {
+                      if (link.sectionRef && location.pathname === '/') {
+                        e.preventDefault();
+                        handleScrollTo(link.sectionRef);
+                      } else if (link.href === location.pathname && link.targetSectionId) {
+                        e.preventDefault();
+                        document.getElementById(link.targetSectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                      closeMobileMenu();
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {/* Adicione um botão aqui se precisar dele na visualização móvel */}
+            {/* <Button className="mt-6">Orçamento</Button> */}
+          </nav>
+        )}
+      </div>
     </header>
   );
 };

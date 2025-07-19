@@ -20,7 +20,7 @@ const LinksPage: React.FC = () => {
         <title>Nossos Links - TNG Clean Higienização</title>
         <meta name="robots" content="noindex, follow" /> {/* Evita que esta página seja indexada no Google */}
       </Helmet>
-      
+
       <div className="bg-ui-background min-h-screen flex flex-col items-center justify-center p-4 font-sans">
         <div className="w-full max-w-md mx-auto">
           {/* Logo */}
@@ -43,7 +43,7 @@ const LinksPage: React.FC = () => {
             </LinkButton>
           </main>
 
-          {/* Ícones Sociais */}
+          {/* Ícones Sociais e Informação do Desenvolvedor */}
           <footer className="mt-12">
             <div className="flex justify-center space-x-6">
               <a href={contactInfo.instagramHref} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-text-secondary hover:text-brand-blue">
@@ -56,8 +56,15 @@ const LinksPage: React.FC = () => {
                 <Mail className="w-8 h-8" />
               </a>
             </div>
-            <p className="text-xs text-gray-400 mt-8">
+            <p className="text-xs text-gray-400 mt-8 text-center">
               &copy; {new Date().getFullYear()} TNG Clean Higienização
+            </p>
+            {/* Adicionando a informação do desenvolvedor aqui */}
+            <p className="text-xs text-gray-400 mt-2 text-center">
+              Desenvolvido por{' '}
+              <a href="https://digitaldominus.com.br/" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline">
+                Dominus Digital
+              </a>
             </p>
           </footer>
         </div>

@@ -7,11 +7,8 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 const Sheet = SheetPrimitive.Root
-
 const SheetTrigger = SheetPrimitive.Trigger
-
 const SheetClose = SheetPrimitive.Close
-
 const SheetPortal = SheetPrimitive.Portal
 
 const SheetOverlay = React.forwardRef<
@@ -51,8 +48,8 @@ const sheetVariants = cva(
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
     VariantProps<typeof sheetVariants> {
-  children?: React.ReactNode;
-  className?: string; // <-- ADICIONE ESTA LINHA AQUI!
+  children?: React.ReactNode; // <--- GARANTA QUE ESTA LINHA ESTÁ AQUI
+  className?: string; // <--- ADICIONE ESTA LINHA AQUI!
 }
 
 const SheetContent = React.forwardRef<
