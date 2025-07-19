@@ -1,75 +1,37 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import ServiceCard from './ServiceCard';
-
 import { Home, Car, Bed, Sofa, Component, Building2 } from 'lucide-react';
 
-interface ServicesProps {
-  sectionRef: RefObject<HTMLElement>;
-}
-
-const Services: React.FC<ServicesProps> = ({ sectionRef }) => {
+const Services: React.FC = () => {
   const services = [
-    {
-      icon: Sofa,
-      title: "Limpeza e Higienização de Estofados",
-      description: "Limpeza profissional profunda para sofás, cadeiras, pufes e todos os móveis estofados em Osasco/SP. Removemos sujeira, manchas e alérgenos para restaurar a beleza e o frescor originais."
-    },
-    {
-      icon: Bed,
-      title: "Limpeza Profunda e Higienização de Colchões",
-      description: "Limpeza profunda e higienização especializada de colchões em Osasco/SP, eliminando ácaros, alérgenos e odores. Garanta um ambiente de sono verdadeiramente saudável e confortável para sua família."
-    },
-    {
-      icon: Component,
-      title: "Lavagem e Limpeza Profunda de Tapetes e Carpetes",
-      description: "Lavagem completa e limpeza profunda para tapetes e carpetes de todos os tipos em Osasco/SP. Utilizamos técnicas avançadas para remover eficazmente sujeira, manchas difíceis, odores e alérgenos, restaurando sua aparência original."
-    },
-    {
-      icon: Car,
-      title: "Higienização e Detalhamento Automotivo Interno",
-      description: "Serviços completos de detalhamento e higienização profissional do interior do seu veículo em Osasco/SP, incluindo bancos, carpetes, teto e painel. Desfrute de uma experiência de condução verdadeiramente fresca, limpa e saudável."
-    },
-    {
-      icon: Home,
-      title: "Limpeza Residencial Especializada",
-      description: "Serviços de limpeza residencial direcionados em Osasco/SP, com foco na limpeza profunda de áreas chave. Ajudamos a manter um ambiente de vida impecável e higiênico, complementando nossos serviços especializados em estofados."
-    },
-    {
-      icon: Building2,
-      title: "Limpeza Comercial e de Escritórios",
-      description: "Serviços profissionais de limpeza e manutenção para escritórios e espaços comerciais em Osasco/SP e regiões próximas. Garanta um local de trabalho produtivo, higiênico e acolhedor para sua equipe e clientes."
-    }
+    { icon: Sofa, title: "Higienização de Estofados", description: "Sua sala de estar renovada! Removemos manchas, sujeira profunda e alérgenos de sofás, cadeiras e poltronas, restaurando a cor e o conforto originais dos seus móveis." },
+    { icon: Bed, title: "Higienização de Colchões", description: "Durma em um ambiente mais saudável. Nossa higienização profunda elimina ácaros, bactérias e odores do seu colchão, garantindo noites de sono mais tranquilas e seguras para sua família." },
+    { icon: Component, title: "Lavagem de Tapetes e Carpetes", description: "Seus tapetes e carpetes livres de sujeira e com aparência de novos. Utilizamos técnicas avançadas que removem manchas difíceis e revitalizam as fibras sem danificar o material." },
+    { icon: Car, title: "Higienização Automotiva Interna", description: "Valorize seu carro com um interior impecável. Realizamos uma limpeza detalhada em bancos, carpetes, teto e painel, proporcionando uma experiência de condução mais fresca e agradável." },
+    { icon: Home, title: "Limpeza Residencial Especializada", description: "Foco nos detalhes que fazem a diferença. Oferecemos limpeza profunda e especializada para áreas e itens específicos da sua casa, complementando a higienização dos estofados." },
+    { icon: Building2, title: "Limpeza Comercial e de Escritórios", description: "Um ambiente de trabalho limpo e saudável para sua equipe e clientes. Atendemos escritórios e espaços comerciais em Osasco/SP e região com agilidade e profissionalismo." }
   ];
 
   return (
-    <section
-      id="services"
-      ref={sectionRef}
-      className="py-20 md:py-24 bg-light-gray text-center"
-    >
+    // COR ALTERADA: Fundo definido como 'bg-ui-card' (branco).
+    <div className="py-20 md:py-24 bg-ui-card text-center">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-dark-gray mb-4 relative inline-block">
-            Nossos Serviços Especializados de Limpeza e Higienização
-            <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-primary-blue rounded-full"></span>
+          <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-4 relative inline-block">
+            Soluções Completas em Higienização
+            <span className="absolute bottom-[-15px] left-1/2 -translate-x-1/2 w-20 h-1 bg-brand-blue rounded-full"></span>
           </h2>
-          <p className="text-xl text-text-color max-w-3xl mx-auto mt-4">
-            Para residências, empresas e veículos em Osasco/SP e região, a **TNG Higienização** oferece soluções profissionais de limpeza e higienização, personalizadas para atender às suas necessidades com excelência incomparável.
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto mt-8">
+            Cuidamos de cada detalhe para transformar seu ambiente. Conheça nossas soluções para residências, empresas e veículos em <strong>Osasco/SP e região</strong>.
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <ServiceCard
-              key={index}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-            />
+            <ServiceCard key={index} icon={service.icon} title={service.title} description={service.description} />
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

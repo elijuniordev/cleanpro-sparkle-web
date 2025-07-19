@@ -6,29 +6,34 @@ export default {
   ],
   theme: {
     extend: {
+      // 1. PALETA DE CORES SEMÂNTICA: Organizada por função para fácil manutenção.
       colors: {
-        // Cores base da sua logo (azul, vermelho)
-        'primary-blue': '#007BFF', // Azul vibrante (ajuste se seu logo tiver um tom diferente)
-        'secondary-red': '#DC3545', // Vermelho forte (ajuste se seu logo tiver um tom diferente)
-
-        // Variações para estados de hover
-        'hover-blue': '#0056b3', // Um azul mais escuro para hover
-        'hover-red': '#c82333', // Um vermelho mais escuro para hover
-
-        // Cores neutras para texto e fundos
-        'white': '#FFFFFF',
-        'light-gray': '#F8F9FA', // Cinza claro para fundos de seções
-        'dark-gray': '#343A40', // Cinza escuro para títulos
-        'text-color': '#495057', // Cinza médio para textos
-
-        // Cor específica do WhatsApp
-        'whatsapp-green': '#25D366',
-
-        // Cores para gradientes ou tons específicos (como no Contact.tsx)
-        'blue-50': '#EBF8FF', // Azul muito claro
-        'red-50': '#FFF5F5',  // Vermelho muito claro
-        'primary-blue-light': '#ADD8E6', // Um azul claro para o texto do Hero
+        brand: {
+          blue: {
+            DEFAULT: '#007BFF', // Cor principal
+            light: '#ADD8E6',   // Tom mais claro para destaques
+            hover: '#0056b3',   // Tom mais escuro para hover
+          },
+          red: {
+            DEFAULT: '#DC3545', // Cor secundária
+            hover: '#c82333',   // Hover da cor secundária
+          },
+        },
+        ui: {
+          background: '#F8F9FA',  // Fundo claro das seções
+          border: '#E2E8F0',     // Cor para bordas sutis
+          card: '#FFFFFF',       // Fundo dos cards
+        },
+        text: {
+          primary: '#1a202c',    // Cor principal para títulos (era 'dark-gray')
+          secondary: '#495057',  // Cor para parágrafos e textos (era 'text-color')
+          white: '#FFFFFF',      // Texto sobre fundos escuros
+        },
+        social: {
+          whatsapp: '#25D366', // Cor específica do WhatsApp
+        }
       },
+      // 2. ANIMAÇÕES: Mantidas como estavam, pois estão bem configuradas.
       animation: {
         'fade-in': 'fadeIn 1s ease-out forwards',
       },
@@ -40,5 +45,6 @@ export default {
       }
     },
   },
-  plugins: [],
+  // 3. PLUGINS: Adicionado o plugin essencial para os componentes shadcn/ui.
+  plugins: [require("tailwindcss-animate")],
 };

@@ -1,8 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-
-import { Toaster } from '../toast';
-import { useToast } from '../hooks/use-toast';
+import { Toaster } from '@/components/ui/toaster';
 
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -13,95 +11,73 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import WhatsappButton from '../components/WhatsAppButton';
 
-const sectionMetadata = {
-  home: {
-    title: "TNG Higienização | Limpeza e Higienização de Estofados e Automotiva em Osasco/SP",
-    description: "Serviços profissionais de higienização de estofados, sofás, colchões, tapetes e interior automotivo em Osasco/SP e região. Solicite seu orçamento gratuito!",
-    keywords: "limpeza de estofados Osasco, higienização de sofás Osasco, limpeza de colchões Osasco, lavagem de tapetes Osasco, higienização automotiva Osasco, limpeza profissional Osasco, TNG Higienização Osasco"
-  },
-  services: {
-    title: "Nossos Serviços - TNG Higienização em Osasco/SP",
-    description: "Conheça nossos serviços especializados em higienização de estofados, colchões, tapetes, interiores automotivos, e limpeza residencial/comercial em Osasco/SP e região.",
-    keywords: "serviços de higienização Osasco, limpeza de estofados, higienização de colchões, lavagem de tapetes, higienização de carros, limpeza residencial, limpeza comercial"
-  },
-  testimonials: {
-    title: "Depoimentos de Clientes - TNG Higienização em Osasco/SP",
-    description: "Veja o que nossos clientes satisfeitos em Osasco/SP e região dizem sobre os serviços de limpeza e higienização da TNG Higienização.",
-    keywords: "depoimentos higienização Osasco, clientes satisfeitos, avaliações TNG Higienização, limpeza profissional Osasco"
-  },
-  location: {
-    title: "Localização e Área de Atendimento - TNG Higienização Osasco/SP",
-    description: "Encontre a TNG Higienização em Osasco/SP e confira nossa área de atendimento para serviços de limpeza e higienização. Atendemos toda a região de Osasco.",
-    keywords: "localização TNG Higienização Osasco, área de atendimento limpeza Osasco, mapa Osasco, endereço TNG Higienização"
-  },
-  contact: {
-    title: "Contato e Orçamento Gratuito - TNG Higienização em Osasco/SP",
-    description: "Entre em contato com a TNG Higienização para solicitar um orçamento gratuito de higienização de estofados, colchões, tapetes e veículos em Osasco/SP e região.",
-    keywords: "contato higienização Osasco, orçamento gratuito limpeza, telefone TNG Higienização, email TNG Higienização, agendamento limpeza Osasco"
-  }
-};
+export interface SectionRefs {
+  inicioRef: React.RefObject<HTMLElement>;
+  servicosRef: React.RefObject<HTMLElement>;
+  depoimentosRef: React.RefObject<HTMLElement>;
+  localizacaoRef: React.RefObject<HTMLElement>;
+  contatoRef: React.RefObject<HTMLElement>;
+}
 
 const IndexPage: React.FC = () => {
-  const homeRef = useRef<HTMLElement>(null);
-  const servicesRef = useRef<HTMLElement>(null);
-  const testimonialsRef = useRef<HTMLElement>(null);
-  const locationRef = useRef<HTMLElement>(null);
-  const contactRef = useRef<HTMLElement>(null);
+  const inicioRef = useRef<HTMLElement>(null);
+  const servicosRef = useRef<HTMLElement>(null);
+  const depoimentosRef = useRef<HTMLElement>(null);
+  const localizacaoRef = useRef<HTMLElement>(null);
+  const contatoRef = useRef<HTMLElement>(null);
 
-  const [currentSection, setCurrentSection] = useState('home');
-
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setCurrentSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    const sections = [homeRef, servicesRef, testimonialsRef, locationRef, contactRef];
-    sections.forEach(ref => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-    });
-
-    return () => {
-      sections.forEach(ref => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
-      });
-    };
-  }, []);
-
-  const metadata = sectionMetadata[currentSection as keyof typeof sectionMetadata];
+  const sectionRefs: SectionRefs = {
+    inicioRef,
+    servicosRef,
+    depoimentosRef,
+    localizacaoRef,
+    contatoRef,
+  };
 
   return (
     <>
       <Helmet>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-        <meta property="og:title" content={metadata.title} />
-        <meta property="og:description" content={metadata.description} />
-        <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : 'https://seusite.com.br/'} />
+        <title>TNG Clean Higienização | Limpeza de Estofados em Osasco/SP e Região</title>
+        <meta 
+          name="description" 
+          content="Higienização profissional de sofás, colchões, tapetes e veículos em Osasco/SP e região. Deixe seu ambiente renovado e livre de ácaros. Peça seu orçamento!" 
+        />
+        <meta 
+          name="keywords" 
+          content="higienização de estofados osasco, limpeza de sofá osasco, limpeza de sofá barueri, limpeza de sofá carapicuíba, higienização automotiva cotia, limpeza de colchão jandira, tng clean, limpeza de estofados alphaville, higienização granja viana" 
+        />
+        <meta property="og:title" content="TNG Clean Higienização | Limpeza Profissional em Osasco e Região" />
+        <meta property="og:description" content="Serviço especializado de limpeza profunda em sofás, colchões e veículos em Osasco, SP e região. Elimine manchas, odores e ácaros." />
+        <meta property="og:url" content="https://www.tngclean.com.br/" />
+        <meta name="author" content="TNG Clean Higienização" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <Header />
-      <Hero sectionRef={homeRef} />
-      <Services sectionRef={servicesRef} />
-      <Testimonials sectionRef={testimonialsRef} />
-      <Location sectionRef={locationRef} />
-      <Contact sectionRef={contactRef} />
+      <Header refs={sectionRefs} />
+      
+      <main>
+        {/* CORREÇÃO: Adicionada a classe 'scroll-mt-[144px]' em todas as seções */}
+        <section id="inicio" ref={inicioRef} className="scroll-mt-[144px]">
+          <Hero refs={sectionRefs} />
+        </section>
+        
+        <section id="servicos" ref={servicosRef} className="scroll-mt-[144px]">
+          <Services />
+        </section>
+        
+        <section id="depoimentos" ref={depoimentosRef} className="scroll-mt-[144px]">
+          <Testimonials />
+        </section>
+        
+        <section id="localizacao" ref={localizacaoRef} className="scroll-mt-[144px]">
+          <Location />
+        </section>
+        
+        <section id="contato" ref={contatoRef} className="scroll-mt-[144px]">
+          <Contact />
+        </section>
+      </main>
+      
       <Footer />
       <WhatsappButton />
       <Toaster />
