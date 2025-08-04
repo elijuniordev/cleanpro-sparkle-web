@@ -1,36 +1,27 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import IndexPage from './pages/Index';
-import LinksPage from './pages/Links';
+import LinksPage from './pages/Links'; // Sua página de links
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout'; // Importe o componente de layout
 
 function App() {
   return (
-    <BrowserRouter> {/* Adicionado de volta para envolver as rotas */}
-      <Routes>
-        {/*
-          Esta abordagem com o `Layout` está correta. A Landing Page principal agora
-          terá o Header e o Footer de forma automática.
-        */}
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <IndexPage />
-            </Layout>
-          }
-        />
-        
-        {/*
-          Rotas como '/links' e '*' não usam o layout, então não terão Header/Footer,
-          o que é o comportamento que você definiu.
-        */}
-        <Route path="/links" element={<LinksPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {/* Rotas que DEVEM ter o Header e Footer, usando o Layout */}
+      <Route
+        path="/"
+        element={
+          <Layout>
+            <IndexPage />
+          </Layout>
+        }
+      />
+      {/* Rotas que NÃO DEVEM ter o Header e Footer, renderizadas diretamente */}
+      <Route path="/links" element={<LinksPage />} />
+      <Route path="*" element={<NotFound />} /> {/* Página 404, sem layout também */}
+    </Routes>
   );
 }
 
